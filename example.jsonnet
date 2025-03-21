@@ -14,18 +14,17 @@ local kp =
       common+: {
         namespace: 'monitoring',
       },
-      prometheus+:: {
-        namespaces: ['default', 'kube-system', 'monitoring', 'wmg'],
+      prometheus+: {
+        namespaces: [],
       },
     },
   };
-
-{ 'setup/0namespace-namespace': kp.kubePrometheus.namespace } +
+{ ['00namespace-' + name]: kp.kubePrometheus[name] for name in std.objectFields(kp.kubePrometheus) } +
+// { 'setup/0namespace-namespace': kp.kubePrometheus.namespace } +
 {
   ['setup/prometheus-operator-' + name]: kp.prometheusOperator[name]
   for name in std.filter((function(name) name != 'serviceMonitor' && name != 'prometheusRule'), std.objectFields(kp.prometheusOperator))
 } +
-{ ['00namespace-' + name]: kp.kubePrometheus[name] for name in std.objectFields(kp.kubePrometheus) } +
 // { 'setup/pyrra-slo-CustomResourceDefinition': kp.pyrra.crd } +
 // serviceMonitor and prometheusRule are separated so that they can be created after the CRDs are ready
 { 'prometheus-operator-serviceMonitor': kp.prometheusOperator.serviceMonitor } +
