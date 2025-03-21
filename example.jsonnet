@@ -14,12 +14,11 @@ local kp =
       common+: {
         namespace: 'monitoring',
       },
-      prometheus+: {
-        namespaces: [],
+      prometheus+:: {
+        namespaces: ['default', 'kube-system', 'monitoring', 'wmg'],
       },
     },
   };
-
 
 { 'setup/0namespace-namespace': kp.kubePrometheus.namespace } +
 {
