@@ -15,7 +15,7 @@ local kp =
       },
       prometheus+: {
         namespaces: [],
-      },
+      }
     },
   };
 
