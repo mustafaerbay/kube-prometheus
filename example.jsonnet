@@ -18,7 +18,7 @@ local kp =
         namespaces: [],
       },
     },
-};
+  };
 { ['00namespace-' + name]: kp.kubePrometheus[name] for name in std.objectFields(kp.kubePrometheus) } +
 // { 'setup/0namespace-namespace': kp.kubePrometheus.namespace } +
 {
